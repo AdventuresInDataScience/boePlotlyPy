@@ -1,0 +1,53 @@
+[project]
+name = "boePlotlyPy"
+version = "0.1.0"
+description = "Bank of England chart styles and colour palettes for Plotly, a Python counterpart to the R package boeCharts."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Malhar" }]
+keywords = ["plotly", "themes", "templates", "dataviz", "visualization", "bank-of-england", "boecharts"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "plotly>=5.23",  # title.subtitle
+]
+
+[project.urls]
+Homepage = "https://github.com/Malhar/boePlotlyPy"
+Repository = "https://github.com/Malhar/boePlotlyPy"
+
+[tool.uv]
+# This network rejects PyPI's default certificate chain; use the OS trust store.
+native-tls = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    # Harmless: the tests share one kaleido browser, so per-call options don't apply.
+    "ignore:The kopts argument is ignored if using a server:UserWarning",
+]
+markers = [
+    "render: renders figures with plotly.js via kaleido (slow; needs Chrome). Skip with -m 'not render'.",
+    "visual: compares renders with baseline PNGs in tests/baseline/ (refresh with --update-baselines).",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/boeplotlypy"]
+# Bundle the font binaries and their licences alongside the Python code.
+artifacts = ["**/*.ttf", "**/LICENSE-OFL.txt", "**/NOTICE.md"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "kaleido>=1.0",
+    "numpy>=2.0.2",
+    "pandas>=2.3.3",
+    "pillow>=11.3.0",
+]

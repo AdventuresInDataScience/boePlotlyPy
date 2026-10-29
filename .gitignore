@@ -1,0 +1,17 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/*
+!dist/.gitkeep
+
+# Visual regression output (diffs from failed comparisons)
+tests/visual_output/
